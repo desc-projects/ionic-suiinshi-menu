@@ -1,5 +1,5 @@
 import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonContent, IonPage, IonRouterOutlet, setupIonicReact } from '@ionic/react';
+import { IonApp, IonContent, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import Home from './pages/Home';
 
@@ -35,29 +35,40 @@ import './theme/variables.css';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { Menu } from './pages/Menu';
+import { AnimatePresence, motion } from 'framer-motion';
 
 setupIonicReact();
 
-const App: React.FC = () => (
-  <IonApp>
+const App: React.FC = () => {
+  return (<IonApp>
     <Header />
     <IonContent>
       <IonReactRouter>
-        <IonRouterOutlet animated={true}>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/menu">
-            <Menu />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
+        <IonRouterOutlet>
+          <AnimatePresence mode='wait'>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              <Route exact path="/home">
+                <Home />
+              </Route>
+              <Route exact path="/menu">
+                <Menu />
+              </Route>
+              <Route exact path="/">
+                <Redirect to="/home" />
+              </Route>
+            </motion.div>
+          </AnimatePresence>
         </IonRouterOutlet>
       </IonReactRouter>
     </IonContent>
     <Footer />
   </IonApp>
-);
+  )
+};
 
 export default App;
