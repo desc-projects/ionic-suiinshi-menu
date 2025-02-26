@@ -1,0 +1,10 @@
+:root {
+    font-family: 'Roboto', sans-serif;
+}
+
+ion-button {
+    width: 100%;
+    font-size: 26px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
